@@ -1,0 +1,34 @@
+{
+  "name": "book-store",
+  "version": "1.0.0",
+  "description": "Book store web application ",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "migrate-dev": "npx prisma migrate dev",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeVibranium/book-store.git"
+  },
+  "author": "Mohammed Shahed Ali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeVibranium/book-store/issues"
+  },
+  "homepage": "https://github.com/CodeVibranium/book-store#readme",
+  "dependencies": {
+    "@prisma/client": "^5.4.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "joi": "^17.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "prisma": "^5.4.1"
+  }
+}
