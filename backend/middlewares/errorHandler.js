@@ -1,8 +1,7 @@
 function errorHandler(err, req, res, next) {
+  console.log("ERROR", err);
   let statusCode = err.statusCode || 500;
-  if (err.isJoi) {
-    statusCode = 400;
-  }
+  if (err.isJoi) statusCode = 400;
   const message =
     statusCode === 500
       ? "Something went wrong, please try later."
