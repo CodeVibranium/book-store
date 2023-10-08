@@ -1,17 +1,24 @@
 const { Router } = require("express");
 const { googleBooksAPI } = require("../utils");
-const { BadRequestError } = require("../Errors/errors");
+const { BadRequestError, NotFoundError } = require("../Errors/errors");
 const prisma = require("../db");
 const router = Router();
 
 router.get("/all/", async (req, res, next) => {
   try {
-    const searchData = req.query.q;
+    const { q: searchData, startIndex, maxResults: perPageSize } = req.query;
     if (!searchData) throw new BadRequestError("Search data is required");
-    const booksData = await googleBooksAPI({ searchData: req.query.q });
+    const booksData = await googleBooksAPI({
+      searchData,
+      startIndex,
+      perPageSize,
+    });
     let authorsCount = {};
+    if (!booksData.items) {
+      throw new NotFoundError("Books not found!");
+    }
     booksData.items.forEach((eachBook) => {
-      const bookAuthors = eachBook.volumeInfo.authors;
+      const bookAuthors = eachBook.volumeInfo.authors || [];
       bookAuthors.map((eachAuthor) => {
         if (authorsCount?.[eachAuthor]) {
           authorsCount[eachAuthor]++;
