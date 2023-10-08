@@ -1,0 +1,30 @@
+.shaded {
+  position: relative;
+}
+
+.shaded::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.library-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #fff !important;
+  transform: translate(-50%, -50%);
+}
