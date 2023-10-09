@@ -45,7 +45,9 @@ function EachBook({ book }) {
           </Col>
           <Col span={24}>
             <Typography.Paragraph ellipsis={ellipses}>
-              {book.volumeInfo.description || book?.searchInfo?.textSnippet}
+              {book.volumeInfo.description ||
+                book?.searchInfo?.textSnippet ||
+                "No description found, please explore the book and let us know"}
             </Typography.Paragraph>
           </Col>
         </Row>

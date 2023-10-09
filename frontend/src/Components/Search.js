@@ -13,6 +13,7 @@ function Search({
   setPageSize,
   setPages,
   setResponseTime,
+  refreshPage,
 }) {
   // const [isLoading, setIsLoading] = useState(false);
   const [searchedVal, setSearchedVal] = useState("");
@@ -27,13 +28,19 @@ function Search({
       };
     } else {
       setBooksList({ items: [] });
+    }
+  }, [searchedVal, pages, pageSize]);
+
+  useEffect(() => {
+    if (searchedVal.length === 0) {
       setPages({
         currentPage: 1,
         startIndex: 0,
       });
       setPageSize(10);
+      setResponseTime(null);
     }
-  }, [searchedVal, pages, pageSize]);
+  }, [searchedVal]);
 
   async function handleSearch() {
     try {
@@ -44,6 +51,7 @@ function Search({
       });
       setBooksList(booksData.data.books);
       setResponseTime(booksData.data.responseTimeInMs);
+      refreshPage();
     } catch (error) {
       console.log(error);
     } finally {
