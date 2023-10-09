@@ -14,9 +14,7 @@ router.get("/all/", async (req, res, next) => {
       perPageSize,
     });
     let authorsCount = {};
-    if (!booksData.items) {
-      throw new NotFoundError("Books not found!");
-    }
+    if (!booksData.items) throw new NotFoundError("Books not found");
     booksData.items.forEach((eachBook) => {
       const bookAuthors = eachBook.volumeInfo.authors || [];
       bookAuthors.map((eachAuthor) => {
