@@ -3,10 +3,10 @@ import { Col, Pagination, Row } from "antd";
 import Search from "./Search";
 import Analytics from "./Analytics";
 import BooksList from "./Books/BooksList";
-import Settings from "./Settings";
 import Typography from "antd/es/typography/Typography";
 function Home() {
   const [pageSize, setPageSize] = useState(10);
+  const [refresh, setRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [booksList, setBooksList] = useState({ items: [] });
   const [responseTime, setResponseTime] = useState(null);
@@ -14,10 +14,13 @@ function Home() {
     currentPage: 1,
     startIndex: 0,
   });
+  function refreshPage() {
+    setRefresh((prev) => !prev);
+  }
   return (
-    <Row gutter={[24, 24]}>
+    <Row gutter={[24, 24]} style={{ marginTop: "1rem" }}>
       <Col span={12}>
-        <Analytics />
+        <Analytics refresh={refresh} />
       </Col>
       <Col span={12}>
         <Search
@@ -30,6 +33,7 @@ function Home() {
           setPages={setPages}
           setResponseTime={setResponseTime}
           responseTime={responseTime}
+          refreshPage={refreshPage}
         />
       </Col>
       {responseTime && (
