@@ -5,7 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.BACKEND_PORT;
 const { requestEnd, requestStart } = require("./middlewares/responseTime");
 
 const errorHandler = require("./middlewares/errorHandler");
