@@ -17,12 +17,23 @@ function Home() {
   function refreshPage() {
     setRefresh((prev) => !prev);
   }
+
+  function updateSetPagesState(page) {
+    setPages({
+      ...pages,
+      currentPage: page,
+      startIndex:
+        page === 1
+          ? 0
+          : Math.min((page - 1) * pageSize, booksList.totalItems - pageSize),
+    });
+  }
   return (
     <Row gutter={[24, 24]} style={{ marginTop: "1rem" }}>
-      <Col span={12}>
+      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
         <Analytics refresh={refresh} />
       </Col>
-      <Col span={12}>
+      <Col xs={24} sm={24} md={12} lg={12} xl={12}>
         <Search
           setBooksList={setBooksList}
           isLoading={isLoading}
@@ -37,7 +48,7 @@ function Home() {
         />
       </Col>
       {responseTime && (
-        <Col span={20} offset={2}>
+        <Col xs={24} sm={24} md={20} lg={20} xl={20} offset={2}>
           <Typography.Text type="secondary">
             Fetched in {responseTime / 1000} sec
           </Typography.Text>
@@ -52,7 +63,7 @@ function Home() {
         />
       </Col>
       {booksList.items.length > 0 && (
-        <Col style={{ textAlign: "right" }} span={24}>
+        <Col style={{ textAlign: "right", marginBottom: "1rem" }} span={24}>
           <Pagination
             showSizeChanger={true}
             showQuickJumper={false}
@@ -62,29 +73,10 @@ function Home() {
             pageSizeOptions={[5, 10, 20]}
             onShowSizeChange={(cur, size) => {
               setPageSize(size);
-              setPages({
-                ...pages,
-                startIndex:
-                  cur === 1
-                    ? 0
-                    : Math.min(
-                        (cur - 1) * pageSize,
-                        booksList.totalItems - pageSize
-                      ),
-              });
+              updateSetPagesState(cur);
             }}
             onChange={(page, pageSize) => {
-              setPages({
-                ...pages,
-                currentPage: page,
-                startIndex:
-                  page === 1
-                    ? 0
-                    : Math.min(
-                        (page - 1) * pageSize,
-                        booksList.totalItems - pageSize
-                      ),
-              });
+              updateSetPagesState(page);
             }}
           />
         </Col>

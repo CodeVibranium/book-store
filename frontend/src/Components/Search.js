@@ -26,13 +26,12 @@ function Search({
       return () => {
         clearTimeout(timer);
       };
-    } else {
-      setBooksList({ items: [] });
     }
   }, [searchedVal, pages, pageSize]);
 
   useEffect(() => {
     if (searchedVal.length === 0) {
+      setBooksList({ items: [] });
       setPages({
         currentPage: 1,
         startIndex: 0,

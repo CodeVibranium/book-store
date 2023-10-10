@@ -29,4 +29,4 @@ function Analytics({ refresh }) {
   );
 }
 
-export default Analytics;
+export default React.memo(Analytics);
